@@ -19,7 +19,13 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+
+    - name: Authenticate to Google Cloud
+      id: auth
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
     - name: Deploy to App Engine
       id: deploy
@@ -27,7 +33,6 @@ jobs:
       with:
         deliverables: app.yaml
         project_id: ${{ secrets.GCP_PROJECT }}
-        credentials: ${{ secrets.GCP_CREDENTIALS }}
 
-    - name: Test
+    - name: Test App Engine Deployment
       run: curl "${{ steps.deploy.outputs.url }}"
