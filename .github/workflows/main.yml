@@ -16,6 +16,13 @@ jobs:
   deploy:
     name: Deploying to Google Cloud
     runs-on: ubuntu-latest
+    env:
+      # This token is provided by Actions and is scoped to the repository that contains your workflow file
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # This is the project ID of your Google Cloud project
+      GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+      # This is the service account key file that you created in the Google Cloud console
+      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
     
     steps:
     - name: Checkout
