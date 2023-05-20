@@ -35,7 +35,4 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT }}
 
     - name: Test App Engine Deployment
-      env:
-        GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
-        GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
       run: curl "${{ steps.deploy.outputs.url }}"

@@ -62,7 +62,6 @@ else:
     ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-        os.environ.get('GCP_CREDENTIALS') if os.environ.get('GCP_CREDENTIALS', None) else
     os.path.join(BASE_DIR, 'gcpCredentials.json')
 )
 

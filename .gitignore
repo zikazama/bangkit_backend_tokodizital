@@ -105,9 +105,12 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
+# Ignore files
+.gitignore
+.gcloudignore
+
 # Environments
 .env
-gcpCredentials.json
 .venv
 env/
 venv/
