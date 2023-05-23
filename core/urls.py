@@ -19,5 +19,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/auth/', include('authentication.urls')),
     path('api/v1/disease/', include('disease.urls')),
-    # path('api/v1/history/', include('history.urls')),
+    path('api/v1/history/', include('history.urls')),
 ]
