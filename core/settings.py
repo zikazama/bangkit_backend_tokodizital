@@ -99,7 +99,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'authentication',
-    'product'
+    'product',
+    'disease'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -151,8 +152,8 @@ DATABASES = {
         'NAME': 'toko-dizital',
         'USER': 'toko-dizital-instance',
         'PASSWORD': 'toko-dizital-2023',
-        'HOST': '/cloudsql/toko-dizital:asia-southeast2:toko-dizital-instance',
-        # 'HOST' : 'localhost',
+        # 'HOST': '/cloudsql/toko-dizital:asia-southeast2:toko-dizital-instance',
+        'HOST' : 'localhost',
         'PORT': '5432',
     }
 }
