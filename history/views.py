@@ -17,6 +17,10 @@ from django.views.decorators.csrf import csrf_exempt
 @method_decorator(csrf_exempt, name='dispatch')
 class HistoryAPI(APIView):
     def get(self, request):
-        histories = History.objects.filter(user=request.user).order_by('-timestamp')
+        query_params = request.query_params
+        limit = int(query_params.get('limit', 10))
+        offset = int(query_params.get('offset', 0))
+
+        histories = History.objects.filter(user=request.user).order_by('-timestamp')[offset:offset+limit]
         serializer = HistorySerializer(histories, many=True)
         return Response(serializer.data)
