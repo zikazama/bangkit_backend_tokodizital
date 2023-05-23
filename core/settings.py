@@ -57,7 +57,7 @@ if APPENGINE_URL:
     # ALLOWED_HOSTS = [urlparse(APPENGINE_URL).netloc]
     ALLOWED_HOSTS = env('ALLOWED_HOSTS')
     CSRF_TRUSTED_ORIGINS = [APPENGINE_URL]
-    # SECURE_SSL_REDIRECT = True
+    # SECURE_SSL_REDIRECT = False
 else:
     ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
@@ -99,6 +99,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'authentication',
+    'product'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -151,6 +152,7 @@ DATABASES = {
         'USER': 'toko-dizital-instance',
         'PASSWORD': 'toko-dizital-2023',
         'HOST': '/cloudsql/toko-dizital:asia-southeast2:toko-dizital-instance',
+        # 'HOST' : 'localhost',
         'PORT': '5432',
     }
 }
