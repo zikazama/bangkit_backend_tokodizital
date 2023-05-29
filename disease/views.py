@@ -27,7 +27,8 @@ class DetectDiseaseAPI(APIView):
         valid = serializer.is_valid(raise_exception=True)
 
         # TODO: get disease from ML
-        disease = Disease.objects.order_by('?').first()
+        predicted_disease = predict_type(Image.open(data['image']))
+        disease = Disease.objects.filter(name = predicted_disease).first()
         # END TODO
         
         serializer.validated_data['disease'] = disease
