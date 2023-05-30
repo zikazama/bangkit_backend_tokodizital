@@ -12,11 +12,13 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import environ
 import io
+import json
 from google.cloud import secretmanager
 from pathlib import Path
 from datetime import timedelta
 from urllib.parse import urlparse
 from google.oauth2 import service_account
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,14 +34,27 @@ env_file = os.path.join(BASE_DIR, '.env')
 if os.path.isfile(env_file):
     # read a local .env file
     env.read_env(env_file)
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'gcpCredentials.json')
+    )
 elif os.environ.get('GOOGLE_CLOUD_PROJECT', None):
     # pull .env file from Secret Manager
     project_id = os.environ.get('GOOGLE_CLOUD_PROJECT')
 
     client = secretmanager.SecretManagerServiceClient()
     settings_name = os.environ.get('SETTINGS_NAME', 'django_settings')
+
     name = f'projects/{project_id}/secrets/{settings_name}/versions/latest'
+    gcp_name = f'projects/{project_id}/secrets/gcp-credentials-json/versions/latest'
+
     payload = client.access_secret_version(name=name).payload.data.decode('UTF-8')
+    
+    response = client.access_secret_version(request={"name": gcp_name})
+    credentials_json = response.payload.data.decode("UTF-8")
+
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
+        json.loads(credentials_json)
+    )
 
     env.read_env(io.StringIO(payload))
 else:
@@ -61,9 +76,7 @@ if APPENGINE_URL:
 else:
     ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, 'gcpCredentials.json')
-)
+
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
@@ -103,7 +116,6 @@ LOCAL_APPS = [
     'disease',
     'history',
     'blog',
-    'home'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
