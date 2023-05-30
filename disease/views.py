@@ -13,6 +13,9 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
+from PIL import Image
+from disease.services.predict_type import predict_type
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class DetectDiseaseAPI(APIView):
