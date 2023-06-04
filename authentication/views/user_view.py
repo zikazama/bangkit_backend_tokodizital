@@ -75,3 +75,14 @@ class EditProfile(APIView):
         except Exception as ex:
             logger.error(ex)
             return Response(prepare_error_response("The phone number or email is already taken"), status=status.HTTP_400_BAD_REQUEST)
+        
+class LoggedinUser(APIView) :
+    permission_classes = (IsAuthenticated,)
+
+    def __init__(self):
+        super(LoggedinUser, self).__init__()
+        self.serializer = ProfileSerializer
+    
+    def get(self, request) :
+        user = request.user
+        return Response(prepare_success_response(data=self.serializer(user).data), status.HTTP_200_OK)
