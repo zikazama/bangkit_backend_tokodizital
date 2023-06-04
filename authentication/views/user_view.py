@@ -42,7 +42,14 @@ class UserLogin(APIView):
         login_serializer = self.login_serializer(data=request.data)
         if login_serializer.is_valid():
             serializer_data = login_serializer.validated_data
-            return Response(prepare_success_response(serializer_data), status.HTTP_200_OK)
+            user = AuthUser.objects.get(phone_number=request.data['phone_number'])
+            
+            data = {
+                'token': serializer_data['token'],
+                'refresh_token': serializer_data['refresh_token'],
+                'user': ProfileSerializer(user).data
+            }
+            return Response(prepare_success_response(data=data), status.HTTP_200_OK)
 
         return Response(prepare_error_response(login_serializer.errors),
                         status.HTTP_400_BAD_REQUEST)
