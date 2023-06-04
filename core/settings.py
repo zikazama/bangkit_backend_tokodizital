@@ -62,6 +62,7 @@ else:
 
 DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
+HOST = env('HOST')
 
 APPENGINE_URL = env('APPENGINE_URL', default=None)
 if APPENGINE_URL:
@@ -167,8 +168,7 @@ DATABASES = {
         'NAME': 'toko-dizital',
         'USER': 'toko-dizital-instance',
         'PASSWORD': 'toko-dizital-2023',
-        'HOST': '/cloudsql/toko-dizital:asia-southeast2:toko-dizital-instance',
-        # 'HOST' : 'localhost',
+        'HOST': HOST,
         'PORT': '5432',
     }
 }
