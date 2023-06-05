@@ -22,8 +22,15 @@ class UserRegistration(APIView):
         register_serializer = self.register_serializer(data=request.data)
         if register_serializer.is_valid():
             password = register_serializer.validated_data.pop('password')
+            image = register_serializer.validated_data.pop('image', None)
+            name = register_serializer.validated_data.pop('name')
+            phone_number = register_serializer.validated_data.pop('phone_number')
             user = AuthUser.objects.create_user(password=password,
-                                         **register_serializer.validated_data)
+                                                phone_number=phone_number,
+                                         **{
+                                                'name': name,
+                                                'image': image,
+                                            })
 
             return Response(prepare_success_response(data=self.register_serializer(user).data),
                             status.HTTP_200_OK)

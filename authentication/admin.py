@@ -6,10 +6,10 @@ from authentication.models import AuthUser
 
 class CustomUserAdmin(UserAdmin):
     model = AuthUser
-    list_display = ('phone_number', 'is_staff', 'is_active', 'is_superuser', 'name', 'email', 'id')
-    list_filter = ('phone_number', 'is_staff', 'is_active',)
+    list_display = ('phone_number', 'name', 'is_superuser', 'id')
+    list_filter = ('is_superuser',)
     fieldsets = (
-        (None, {'fields': ('phone_number', 'email', 'name',)}),
+        (None, {'fields': ('phone_number', 'email', 'name', 'image')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
     )
     add_fieldsets = (
