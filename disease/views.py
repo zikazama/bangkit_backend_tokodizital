@@ -51,7 +51,8 @@ class DetectDiseaseAPI(APIView):
         print(ROOT_PATH)
         try : 
             ITEM_LIST = os.listdir(ROOT_PATH)
-            return Response({"file" : ITEM_LIST})
+            return Response({"file" : ITEM_LIST,
+                             "path" : ROOT_PATH})
 
         except Exception as ex:
             return Response({"file" : ROOT_PATH})
