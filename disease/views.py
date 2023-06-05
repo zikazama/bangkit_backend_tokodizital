@@ -48,6 +48,10 @@ class DetectDiseaseAPI(APIView):
     #JUST FOR TESTING!
     def get(self, request) :
         ROOT_PATH = os.path.abspath(os.curdir)
-        MODEL_PATH = os.path.join(ROOT_PATH, "model")
-        ITEM_LIST = os.listdir(MODEL_PATH)
-        return Response({"file" : ITEM_LIST})
+        print(ROOT_PATH)
+        try : 
+            ITEM_LIST = os.listdir(ROOT_PATH)
+            return Response({"file" : ITEM_LIST})
+
+        except Exception as ex:
+            return Response({"file" : ROOT_PATH})
