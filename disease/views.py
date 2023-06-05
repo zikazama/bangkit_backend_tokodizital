@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from rest_framework import generics, permissions, status
@@ -17,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 @method_decorator(csrf_exempt, name='dispatch')
 class DetectDiseaseAPI(APIView):
     serializer_class = DetectDiseaseSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def post(self, request):
 
@@ -43,3 +44,10 @@ class DetectDiseaseAPI(APIView):
             }
 
             return Response(response, status=status_code)
+    
+    #JUST FOR TESTING!
+    def get(self, request) :
+        ROOT_PATH = os.path.abspath(os.curdir)
+        MODEL_PATH = os.path.join(ROOT_PATH, "model")
+        ITEM_LIST = os.listdir(MODEL_PATH)
+        return Response({"file" : ITEM_LIST})

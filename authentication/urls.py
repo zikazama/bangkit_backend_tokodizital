@@ -12,6 +12,4 @@ urlpatterns = [
     path('reset-password/', ResetPassword.as_view()),
     path('edit-profile/', EditProfile.as_view()),
     path('user/', LoggedinUser.as_view()),
-
-
 ]
