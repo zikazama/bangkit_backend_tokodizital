@@ -3,7 +3,10 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from datetime import datetime
 
+def upload_to(instance, filename):
+    return 'profile/images/{time}/{filename}'.format(filename=filename, time=datetime.now())
 
 class UserManager(BaseUserManager):
     def create_user(self, password, phone_number, **kwargs):
@@ -47,6 +50,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=50, null=True)
     email = models.EmailField(_('email address'), null=True, blank=True)
     phone_number = models.CharField(max_length=15, unique=True, null=True)
+    image = models.ImageField(upload_to=upload_to, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
