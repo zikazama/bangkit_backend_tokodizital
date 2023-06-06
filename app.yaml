@@ -11,5 +11,4 @@ handlers:
   script: auto
 
 runtime_config:
-   operating_system: "ubuntu18"
-   runtime_version: "3.9"
+   runtime_version: "3.8"
