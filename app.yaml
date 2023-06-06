@@ -1,4 +1,4 @@
-runtime: python
+runtime: python39
 env: standard
 entrypoint: gunicorn -b :$PORT core.wsgi:application
 
@@ -11,4 +11,4 @@ handlers:
   script: auto
 
 runtime_config:
-  python_version: "3.8"
+  python_version: 3
