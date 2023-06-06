@@ -11,4 +11,4 @@ handlers:
   script: auto
 
 runtime_config:
-   runtime_version: "3.8"
+  python_version: "3.8"
