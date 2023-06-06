@@ -25,6 +25,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 
 @method_decorator(csrf_exempt, name='dispatch')
 class DetectDiseaseAPI(APIView):
@@ -41,7 +42,10 @@ class DetectDiseaseAPI(APIView):
     def post(self, request):
 
         data = request.data.copy()
-        data['user'] = request.user.id
+
+        if request.user and request.user.is_authenticated:
+            data['user'] = request.user.id
+
         serializer = self.serializer_class(data=data)
         valid = serializer.is_valid(raise_exception=True)
 
@@ -52,14 +56,31 @@ class DetectDiseaseAPI(APIView):
         
         serializer.validated_data['disease'] = disease
 
-        if valid:
+        if valid and request.user and request.user.is_authenticated:
             serializer.save()
-            status_code = status.HTTP_201_CREATED
+            print("saved")
+        else:
+            serializer.validated_data['timestamp'] = datetime.now()
+            print("not saved")
+            
+        status_code = status.HTTP_201_CREATED
 
-            response = {
-                'success': True,
-                'statusCode': status_code,
-                'data': serializer.data,
-            }
+        response = {
+            'success': True,
+            'statusCode': status_code,
+            'data': serializer.data,
+        }
 
-            return Response(response, status=status_code)
+        return Response(response, status=status_code)
+    
+    #JUST FOR TESTING!
+    def get(self, request) :
+        ROOT_PATH = os.path.abspath(os.curdir)
+        print(ROOT_PATH)
+        try : 
+            ITEM_LIST = os.listdir(ROOT_PATH)
+            return Response({"file" : ITEM_LIST,
+                             "path" : ROOT_PATH})
+
+        except Exception as ex:
+            return Response({"file" : ROOT_PATH})
