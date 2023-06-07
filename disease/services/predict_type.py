@@ -19,7 +19,7 @@ def predict_type(image, model, model_potato, model_apple) :
         predicted_class_index = np.argmax(classes[0])
         predicted_class_name = class_name[predicted_class_index]
         predicted_disease = ""
-        
+
         if(predicted_class_name == "potato") :
                 class_name = ["potato early blight", "potato healthy", "potato late blight"]
                 predicted_disease = predict_disease(images, model_potato, class_name)
