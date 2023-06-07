@@ -1,6 +1,4 @@
 from django.apps import AppConfig
-import gcsfs
-import h5py
 from tensorflow.keras.models import load_model
 
 
