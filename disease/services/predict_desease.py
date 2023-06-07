@@ -8,7 +8,7 @@ def predict_disease(image, model, class_name) :
 
         # Get the name of the predicted class
         predicted_class_name = class_name[predicted_class_index]
-
+        
         # Print the predicted class name
         return predicted_class_name
             

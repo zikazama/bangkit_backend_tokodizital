@@ -9,25 +9,20 @@ class DiseaseConfig(AppConfig):
     name = 'disease'
 
     def ready(self) : 
-        FS = gcsfs.GCSFileSystem(project="toko-dizital",
-                         token="gcpCredentials.json")
-        with FS.open("gs://toko-dizital/model/model_type_3.h5", 'rb') as model_file:
-            model_gcs = h5py.File(model_file, 'r')
-            model = load_model(model_gcs)
+        PATH_TYPE = 'disease/models/model_type_3.h5'
+        PATH_APPLE = 'disease/models/model_type_3.h5'
+        PATH_POTATO = 'disease/models/model_type_3.h5'
+        PATH_CORN = 'disease/models/model_type_3.h5'
 
-        self.model_type = model
-
+        self.model_type = load_model(PATH_TYPE)
         print("Load Model Type Success!!!")
-        # with FS.open("gs://toko-dizital/model/model_potato_4.h5", 'rb') as model_file:
-        #     model_gcs = h5py.File(model_file, 'r')
-        #     model = load_model(model_gcs)
 
-        # self.potato_model = model
-        # print("Load Model Potato Success!!!")
-
-        with FS.open("gs://toko-dizital/model/model_apple_2.h5", 'rb') as model_file:
-            model_gcs = h5py.File(model_file, 'r')
-            model = load_model(model_gcs)
-
-        self.apple_model = model
+        self.apple_model = load_model(PATH_APPLE)
         print("Load Model Apple Success!!!")
+
+        self.potato_model = load_model(PATH_POTATO)
+        print("Load Model Potato Success!!!")
+
+        self.corn_model = load_model(PATH_CORN)
+        print("Load Model Corn Success!!!")
+

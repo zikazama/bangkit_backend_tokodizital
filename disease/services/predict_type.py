@@ -4,7 +4,7 @@ import numpy as np
 
 from disease.services.predict_desease import predict_disease
 
-def predict_type(image, model, model_apple) :
+def predict_type(image, model, model_potato, model_corn, model_apple) :
         resized_image = image.resize((150, 150))
         class_name = ["apple", "corn", "potato"]
 
@@ -20,14 +20,18 @@ def predict_type(image, model, model_apple) :
         predicted_class_name = class_name[predicted_class_index]
         predicted_disease = ""
 
-        # if(predicted_class_name == "potato") :
-        #         class_name = ["potato early blight", "potato healthy", "potato late blight"]
-        #         predicted_disease = predict_disease(images, model_potato, class_name)
+        if(predicted_class_name == "potato") :
+                class_name = ["potato early blight", "potato healthy", "potato late blight"]
+                predicted_disease = predict_disease(images, model_potato, class_name)
 
-        if(predicted_class_name == "apple") :
+        elif predicted_class_name == "corn" :
+                class_name = ["corn common rust", "corn gray leaf spot", "corn healthy", "corn northern leaf blight"] 
+                predicted_disease = predict_disease(images, model_corn, class_name)
+
+
+        elif (predicted_class_name == "apple") :
                 class_name = ['apple black rot', 'apple healthy', 'apple scab', 'apple cedar rust']
                 predicted_disease = predict_disease(images, model_apple, class_name)
-
-        # Print the predicted class name
+                
         print(predicted_disease)
         return predicted_disease
