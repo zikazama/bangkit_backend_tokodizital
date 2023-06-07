@@ -115,7 +115,7 @@ env.bak/
 venv.bak/
 
 # GCP Credentials
-gcpCredentials.json
+# gcpCredentials.json
 
 # Spyder project settings
 .spyderproject
