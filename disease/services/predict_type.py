@@ -24,7 +24,7 @@ def predict_type(image, model, model_apple) :
         #         class_name = ["potato early blight", "potato healthy", "potato late blight"]
         #         predicted_disease = predict_disease(images, model_potato, class_name)
 
-        elif(predicted_class_name == "apple") :
+        if(predicted_class_name == "apple") :
                 class_name = ['apple black rot', 'apple healthy', 'apple scab', 'apple cedar rust']
                 predicted_disease = predict_disease(images, model_apple, class_name)
 
