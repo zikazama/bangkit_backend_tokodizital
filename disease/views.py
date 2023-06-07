@@ -36,7 +36,7 @@ class DetectDiseaseAPI(APIView):
         super(DetectDiseaseAPI, self).__init__()
         DiseaseConfig = apps.get_app_config('disease')
         self.model_type = DiseaseConfig.model_type
-        self.model_potato = DiseaseConfig.potato_model
+        # self.model_potato = DiseaseConfig.potato_model
         self.model_apple = DiseaseConfig.apple_model
         
     def post(self, request):
@@ -50,7 +50,7 @@ class DetectDiseaseAPI(APIView):
         valid = serializer.is_valid(raise_exception=True)
 
         # TODO: get disease from ML
-        predicted_disease = predict_type(Image.open(data['image']), self.model_type, self.model_potato, self.model_apple)
+        predicted_disease = predict_type(Image.open(data['image']), self.model_type, self.model_apple)
         disease = Disease.objects.filter(name = predicted_disease).first()
         # # END TODO
         
