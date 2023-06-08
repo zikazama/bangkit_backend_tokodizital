@@ -3,9 +3,10 @@ from rest_framework import serializers
 from disease.models import Disease
 from history.models import History
 from product.serializers import ProductSerializer
+from authentication.serializers.profile_serializer import ProfileSerializer
 
 class DiseaseSerializer(serializers.ModelSerializer):
-    products = ProductSerializer(many=True, read_only=True)
+    products = ProductSerializer(many=True, )
 
     class Meta:
         model = Disease

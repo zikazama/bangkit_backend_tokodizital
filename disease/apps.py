@@ -8,9 +8,9 @@ class DiseaseConfig(AppConfig):
 
     def ready(self) : 
         PATH_TYPE = 'disease/models/model_type_3.h5'
-        PATH_APPLE = 'disease/models/model_type_3.h5'
-        PATH_POTATO = 'disease/models/model_type_3.h5'
-        PATH_CORN = 'disease/models/model_type_3.h5'
+        PATH_APPLE = 'disease/models/model_apple_2.h5'
+        PATH_POTATO = 'disease/models/model_potato_5.h5'
+        PATH_CORN = 'disease/models/model_corn_5.h5'
 
         self.model_type = load_model(PATH_TYPE)
         print("Load Model Type Success!!!")

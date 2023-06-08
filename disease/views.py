@@ -45,6 +45,9 @@ class DetectDiseaseAPI(APIView):
         disease = Disease.objects.filter(name = predicted_disease).first()
         
         serializer.validated_data['disease'] = disease
+        
+        # if request.user and request.user.is_authenticated:
+        #     serializer.validated_data['user'] = request.user
 
         if valid and request.user and request.user.is_authenticated:
             serializer.save()
