@@ -33,21 +33,19 @@ class DetectDiseaseAPI(APIView):
     def post(self, request):
 
         data = request.data.copy()
-
+        
         if request.user and request.user.is_authenticated:
             data['user'] = request.user.id
 
         serializer = self.serializer_class(data=data)
-        valid = serializer.is_valid(raise_exception=True)
 
+        valid = serializer.is_valid(raise_exception=True)
+        
         predicted_disease = predict_type(Image.open(data['image']), self.model_type, 
                                          self.model_potato, self.model_apple, self.model_corn)
         disease = Disease.objects.filter(name = predicted_disease).first()
         
         serializer.validated_data['disease'] = disease
-        
-        # if request.user and request.user.is_authenticated:
-        #     serializer.validated_data['user'] = request.user
 
         if valid and request.user and request.user.is_authenticated:
             serializer.save()
