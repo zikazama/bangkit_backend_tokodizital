@@ -168,7 +168,7 @@ DATABASES = {
         'NAME': 'toko-dizital',
         'USER': 'toko-dizital-instance',
         'PASSWORD': 'toko-dizital-2023',
-        'HOST': "localhost",
+        'HOST': HOST,
         'PORT': '5432',
     }
 }
