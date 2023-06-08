@@ -1,6 +1,8 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+
 from django.core.paginator import Paginator
 
 from applibs.response import prepare_error_response, prepare_success_response
@@ -13,7 +15,6 @@ class CommentAPI(APIView) :
         super(CommentAPI, self).__init__()
         self.comment_serializer = CommentSerializer
         self.comment_list_serializer = CommentListSerializer
-        self.submit_comment = SubmitCommentSerializer
 
     def get(self, request, id) :
         query_params = request.query_params
@@ -39,7 +40,14 @@ class CommentAPI(APIView) :
 
         serializer = self.comment_list_serializer(data)
         return Response(serializer.data)
-    
+
+class SubmitCommentAPI(APIView) :
+    permission_classes = [IsAuthenticated]
+    def __init__(self) :
+        super(SubmitCommentAPI, self).__init__()
+        self.comment_serializer = CommentSerializer
+        self.submit_comment = SubmitCommentSerializer
+
     def post(self, request) :
         submit_comment_serializer = self.submit_comment(data=request.data)
 
